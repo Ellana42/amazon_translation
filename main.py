@@ -1,14 +1,17 @@
 import boto3
-from sys import argv
-
-try:
-    to_translate = argv[1]
-except IndexError:
-    print('You forgot the text to translate')
+import click
 
 translate = boto3.client(service_name='translate')
 
-translated = translate.translate_text(
-    Text=to_translate, SourceLanguageCode="ja", TargetLanguageCode="en")['TranslatedText']
 
-print(translated)
+@click.command()
+@click.argument('untranslated_text')
+def translator(untranslated_text):
+    translated = translate.translate_text(
+        Text=untranslated_text, SourceLanguageCode="ja", TargetLanguageCode="en")['TranslatedText']
+    click.echo('Here is your translated text :')
+    click.echo(translated)
+
+
+if __name__ == '__main__':
+    translator()
