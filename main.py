@@ -15,7 +15,7 @@ def translator(direct_input, file, output):
             untranslated_text = file_to_translate.read()
         translated = translate_to_jp(untranslated_text)
     else:
-        translated = translate_to_jp(untranslated_text)
+        translated = translate_to_jp(direct_input)
 
     if output is None:
         click.echo(translated)
